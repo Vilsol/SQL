@@ -100,7 +100,7 @@ class Delete extends SQLQuery {
 			$query .= " LIMIT ".$this->offset.", 18446744073709551615";
 		}
 
-		return array($query, $bindData);
+		return array($query, PDOHelper::flatten($bindData));
 	}
 
 }

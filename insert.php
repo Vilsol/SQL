@@ -96,7 +96,7 @@ class Insert extends SQLQuery {
 			die();
 		}
 
-		return array($query, $bindData);
+		return array($query, PDOHelper::flatten($bindData));
 	}
 
 }

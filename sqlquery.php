@@ -28,6 +28,7 @@ abstract class SQLQuery {
         if($statement->errorInfo()[1] > 0){
             xdebug_print_function_stack($statement->errorInfo()[2]);
             var_dump($this);
+            var_dump($query);
             die();
         }
 

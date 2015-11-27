@@ -50,7 +50,7 @@ class PDOHelper {
 			$r .= '<thead>';
 			$r .= '<tr>';
 			foreach($aColList[0] as $k => $v){
-				$r .= '<td>'.$k.'</td>';
+				$r .= '<td style="font-weight: bold">'.$k.'</td>';
 			}
 			$r .= '</tr>';
 			$r .= '</thead>';
@@ -79,5 +79,17 @@ class PDOHelper {
 		$style = "style='color:#333846; border:1px solid #777; padding:2px; background-color: #FFC0CB;'";
 		die("<div $style >ERROR:".json_encode($data)."</div>");
 	}
+
+    /**
+     * Flatten an array
+     *
+     * @param $array Array Array to flatten
+     * @return array
+     */
+    public static function flatten($array){
+        $objTmp = (object) array('aFlat' => array());
+        array_walk_recursive($array, create_function('&$v, $k, &$t', '$t->aFlat[] = $v;'), $objTmp);
+        return $objTmp->aFlat;
+    }
 
 }

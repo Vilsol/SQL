@@ -12,6 +12,7 @@ class Select extends SQLQuery {
 	private $count = 0;
 	private $by;
 	private $direction;
+    private $join = array();
 
 	/**
 	 * @param String $table Table to select from
@@ -102,6 +103,19 @@ class Select extends SQLQuery {
         return $this;
     }
 
+    /**
+     * @param $type String Type of join (Inner, Outer, etc.)
+     * @param $table String Remote table to join
+     * @param $onCurrent String Column in base table on which to join
+     * @param $comparison String Type of comparison operator
+     * @param $onRemote String Column in remote table on which to join
+     * @return $this
+     */
+    function join($type, $table, $onCurrent, $comparison, $onRemote){
+        array_push($this->join, array($type, $table, $onCurrent, $comparison, $onRemote));
+        return $this;
+    }
+
 	function buildQuery(){
 		$bindData = array();
 		$query = "SELECT ";
@@ -131,6 +145,12 @@ class Select extends SQLQuery {
 
 		$query .= " FROM `".$this->table."`";
 
+        if(count($this->join) > 0){
+            foreach($this->join as $v){
+                $query .= " ".$v[0]." JOIN `".$v[1]."` ON `".$this->table."`.`".$v[2]."` ".$v[3]." `".$v[1]."`.`".$v[4]."`";
+            }
+        }
+
 		if($this->where != null){
 			if($this->where instanceof Where){
 				$query .= $this->where->toSQL();
@@ -152,7 +172,7 @@ class Select extends SQLQuery {
 			$query .= " LIMIT ".$this->offset.", 18446744073709551615";
 		}
 
-		return array($query, $bindData);
+		return array($query, PDOHelper::flatten($bindData));
 	}
 
 }
