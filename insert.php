@@ -37,7 +37,7 @@ class Insert extends SQLQuery {
 	}
 
 	/**
-	 * @param Array $data Data set to insert
+	 * @param array $data Data set to insert
 	 *
 	 * @return $this
 	 */

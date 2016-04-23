@@ -83,7 +83,7 @@ class PDOHelper {
     /**
      * Flatten an array
      *
-     * @param $array Array Array to flatten
+     * @param $array array Array to flatten
      * @return array
      */
     public static function flatten($array){

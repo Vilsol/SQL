@@ -9,7 +9,7 @@ abstract class SQLQuery {
     /**
      * Build Query
      *
-     * @return Array (Query, Data)
+     * @return array (Query, Data)
      */
     abstract function buildQuery();
 
