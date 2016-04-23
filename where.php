@@ -2,6 +2,8 @@
 
 namespace SQL;
 
+use PDOStatement;
+
 class Where {
 
     private $parent;
@@ -53,6 +55,14 @@ class Where {
      */
     function b(){
         return $this->parent;
+    }
+
+    /**
+     * Build and execute actual query
+     * @return PDOStatement
+     */
+    function execute(){
+        return $this->parent->execute();
     }
 
     /**
